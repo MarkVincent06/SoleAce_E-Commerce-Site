@@ -1,3 +1,9 @@
+<?php
+// gets all the featured product data in the database
+include './crudDB/getShoppingCart.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +13,8 @@
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
    <!-- CSS LINK -->
-   <link rel="stylesheet" href="./styles/index.css">
    <link rel="stylesheet" href="./styles/cart.css">
+   <link rel="stylesheet" href="./styles/navigation.css">
 
    <!-- GOOGLE FONTS LINK -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,73 +38,51 @@
          <section class="cart-container">
             <h2>CART</h2>
 
-            <div class="cart--product-container">
-               <img src="./uploads/product10.png" alt="A picture of an item">
-               <div class="cart--product-details">
-                  <h3>Jordan Nu Retro 1 Low</h3>
-                  <p>Men's Shoes</p>
-                  <p>Black/Tour Yellow/White</p>
-                  <div class="cart--product-selection">
-                     <div>
-                        <label for="product-size">Size</label>
-                        <select name="product-size" id="product-size">
-                           <option value="9">9</option>
-                           <option value="10">10</option>
-                           <option value="11">11</option>
-                           <option value="12">12</option>
-                           <option value="13">13</option>
-                        </select>
-                     </div>
+            <?php
+            $total_price = 0; // Initialize total price to 0
+            foreach ($cart_products as $product) :
+               // Calculate total price of the product based on quantity and price
+               $product_total_price = $product["shoe_price"] * $product["shoe_quantity"];
+               $total_price += $product_total_price; // Add product price to the running total
+            ?>
+               <div class="cart--product-container">
+                  <img src="<?php echo $product["shoe_image_src"] ?>" alt="A picture of an item">
+                  <div class="cart--product-details">
+                     <h3><?php echo $product["shoe_name"] ?></h3>
+                     <p><?php echo $product["shoe_category"] ?></p>
+                     <!-- <p>Black/Tour Yellow/White</p> -->
+                     <div class="cart--product-selection">
+                        <div>
+                           <label for="product-size">Size</label>
+                           <select name="product-size" id="product-size">
+                              <?php
+                              $sizes = ["7", "8", "9", "10", "11", "12", "13", "14", "15"];
+                              foreach ($sizes as $size) :
+                                 $selectedSize = ($size === $product["shoe_size"]) ? "selected" : "";
+                              ?>
+                                 <option value="<?php echo $size ?>" <?php echo $selectedSize ?>><?php echo $size ?></option>
+                              <?php endforeach ?>
+                           </select>
+                        </div>
 
-                     <div>
-                        <label for="product-quantity">Quantity</label>
-                        <select name="product-quantity" id="product-quantity">
-                           <option value="1">1</option>
-                           <option value="2">2</option>
-                           <option value="3">3</option>
-                           <option value="4">4</option>
-                           <option value="5">5</option>
-                        </select>
+                        <div>
+                           <label for="product-quantity">Quantity</label>
+                           <select name="product-quantity" id="product-quantity">
+                              <?php
+                              $quantities = ["1", "2", "3", "4", "5"];
+                              foreach ($quantities as $quantity) :
+                                 $selectedQuantity = ($quantity === $product["shoe_quantity"]) ? "selected" : "";
+                              ?>
+                                 <option value="<?php echo $quantity ?>" <?php echo $selectedQuantity ?>><?php echo $quantity ?></option>
+                              <?php endforeach ?>
+                           </select>
+                        </div>
                      </div>
+                     <a href="#"><i class="fa-regular fa-trash-can trashcan"></i></a>
                   </div>
-                  <a href="#"><i class="fa-regular fa-trash-can trashcan"></i></a>
+                  <small class="cart--product-price">₱ <?php echo $product["shoe_price"] ?></small>
                </div>
-               <small class="cart--product-price">₱ 5,895.00</small>
-            </div>
-
-            <div class="cart--product-container">
-               <img src="./uploads/product9.png" alt="A picture of an item">
-               <div class="cart--product-details">
-                  <h3>Nike Air Max SYSTEM</h3>
-                  <p>Men's Shoes</p>
-                  <p>White/ summit White/BlacK</p>
-                  <div class="cart--product-selection">
-                     <div>
-                        <label for="product-size">Size</label>
-                        <select name="product-size" id="product-size">
-                           <option value="9">9</option>
-                           <option value="10">10</option>
-                           <option value="11">11</option>
-                           <option value="12">12</option>
-                           <option value="13">13</option>
-                        </select>
-                     </div>
-
-                     <div>
-                        <label for="product-quantity">Quantity</label>
-                        <select name="product-quantity" id="product-quantity">
-                           <option value="1">1</option>
-                           <option value="2">2</option>
-                           <option value="3">3</option>
-                           <option value="4">4</option>
-                           <option value="5">5</option>
-                        </select>
-                     </div>
-                  </div>
-                  <a href="#"><i class="fa-regular fa-trash-can trashcan"></i></a>
-               </div>
-               <small class="cart--product-price">₱ 5,095.00</small>
-            </div>
+            <?php endforeach ?>
 
          </section>
 
@@ -106,7 +90,7 @@
             <h2>SUMMARY</h2>
             <div class="summary--subtotal">
                <p>Subtotal</p>
-               <p>₱ 10,990.00</p>
+               <p>₱ <?php echo number_format($total_price) ?></p>
             </div>
 
             <div class="summary--shipping-fee">
@@ -118,7 +102,7 @@
 
             <div class="summary--total">
                <p>Total</p>
-               <p>₱ 10,990.00</p>
+               <p>₱ <?php echo number_format($total_price) ?></p>
             </div>
 
             <div class="summary--hori-line"></div>

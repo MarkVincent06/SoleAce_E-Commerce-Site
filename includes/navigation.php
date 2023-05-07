@@ -4,10 +4,43 @@
    </a>
 
    <ul class="categories">
-      <li><a href="#">New & Featured</a></li>
-      <li><a href="#">Men</a></li>
-      <li><a href="#">Women</a></li>
-      <li><a href="#">Kids</a>
+      <li>
+         New & Featured
+
+         <ul class="dropdown-menu">
+            <li><a href="#">New Arrivals</a></li>
+            <li><a href="#">Featured Shoes</a></li>
+         </ul>
+      </li>
+      <li>
+         Men
+
+         <ul class="dropdown-menu">
+            <li><a href="#">All Shoes For Men</a></li>
+            <li><a href="#">Casual</a></li>
+            <li><a href="#">Sneakers</a></li>
+            <li><a href="#">Running</a></li>
+         </ul>
+      </li>
+      <li>
+         Women
+
+         <ul class="dropdown-menu">
+            <li><a href="#">All Shoes For Women</a></li>
+            <li><a href="#">Casual</a></li>
+            <li><a href="#">Sneakers</a></li>
+            <li><a href="#">Running</a></li>
+         </ul>
+      </li>
+      <li>
+         Kids
+
+         <ul class="dropdown-menu">
+            <li><a href="#">All Shoes For Kids</a></li>
+            <li><a href="#">Casual</a></li>
+            <li><a href="#">Sneakers</a></li>
+            <li><a href="#">Running</a></li>
+         </ul>
       </li>
    </ul>
 
@@ -17,6 +50,6 @@
 
    <!-- WILL CHANGE THIS TO IMAGE TO ICON LATER -->
    <a href="./cart.php" class="shopping-cart-link">
-      <img src="./img/icons/shopping-cart.png" alt="An icon of a shopping cart">
+      <i class="fa-solid fa-cart-shopping shopping-cart"></i>
    </a>
 </nav>

@@ -1,3 +1,11 @@
+<?php
+session_start();
+
+// gets all the featured product data in the database
+include './crudDB/getFeaturedProducts.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,16 +16,40 @@
 
    <!-- CSS LINK -->
    <link rel="stylesheet" href="./styles/index.css">
+   <link rel="stylesheet" href="./styles/navigation.css">
 
    <!-- GOOGLE FONTS LINK -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
+   <!-- JQUERY MINIFIED CDN -->
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+
+   <!-- ADD TO CART JS -->
+   <script src="./js/add_to_cart.js"></script>
+
+   <!-- FONTAWESOME CDN -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+   <!-- SUCCESS-TOAST-MESSAGE JS -->
+   <script src="./js/showSuccessToastMsg.js"></script>
+
+   <!-- SWEETALERT CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
    <title>Dashboard - SoleAce</title>
 </head>
 
 <body>
+   <!-- This session will display a toast message -->
+   <?php if (isset($_SESSION['successToastMsg'])) : ?>
+      <!-- THIS HIDDEN INPUT WILL BE USED IN JS FILE CALLED `showSuccessToastMsg.js` -->
+      <input id="hiddenToastMsg" type="hidden" value="<?php echo $_SESSION['successToastMsg'];
+                                                      unset($_SESSION['successToastMsg']); ?>">
+   <?php endif ?>
+
+
    <!-- START OF NAV -->
    <?php include './includes/navigation.php' ?>
    <!-- END  OF NAV -->
@@ -36,71 +68,32 @@
 
          <form class="products-container" method="post" onsubmit="return false;">
 
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product1.png" />
-               <h3 class="product--name">New Balance Fresh Foam</h3>
-               <p class="product--category">Women's Running Shoes</p>
-               <p class="product--price">₱ 4,620</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
+            <?php foreach ($featured_products as $product) : ?>
+               <div class="product-container">
 
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product2.png" />
-               <h3 class="product--name">Nike Legend Essential 2</h3>
-               <p class="product--category">Men's Training Shoes</p>
-               <p class="product--price">₱ 2,895</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
+                  <!-- This hidden input is will store the id of the product and will be used for buying/adding to cart -->
+                  <input class="hidden-product-id" type="hidden" value="<?php echo $product['shoe_id'] ?>">
 
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product3.png" />
-               <h3 class="product--name">K.Swiss Defier</h3>
-               <p class="product--category">Men's Training Shoes</p>
-               <p class="product--price">₱ 3,210</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button" style="background-color: #BB0000;">ADD TO CART</button>
+                  <img class="product--image" src="<?php echo $product['shoe_image_src'] ?>" />
+                  <h3 class="product--name"><?php echo $product['shoe_name'] ?></h3>
+                  <p class="product--category"><?php echo $product['shoe_category'] ?></p>
+                  <div class="product-selection">
+                     <label for="product-size">Size</label>
+                     <select name="product-size" id="product-size">
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                     </select>
+                  </div>
+                  <p class="product--price">₱ <?php echo $product['shoe_price'] ?></p>
+                  <div class="product--buttons-container">
+                     <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
+                     <button class="product--button add-to-cart-btn" style="background-color: #BB0000;">ADD TO CART</button>
+                  </div>
                </div>
-            </div>
-
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product4.png" />
-               <h3 class="product--name">Nike SuperRep Go</h3>
-               <p class="product--category">Men's Training Shoes</p>
-               <p class="product--price">₱ 2,715</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
-
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product5.png" />
-               <h3 class="product--name">New Balance REVLite 247</h3>
-               <p class="product--category">Men's Training Shoes</p>
-               <p class="product--price">₱ 4,235</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
-
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product6.png" />
-               <h3 class="product--name">Nike Free Metcon 4</h3>
-               <p class="product--category">Women's Training Shoes</p>
-               <p class="product--price">₱ 5,159</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
+            <?php endforeach; ?>
 
          </form>
       </section>
