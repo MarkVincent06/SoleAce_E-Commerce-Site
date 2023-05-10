@@ -1,6 +1,6 @@
 <?php
 
-include './includes/database.php';
+include './config/dbconn.php';
 
 // Construct the SQL query to join the shopping_cart and shoe_products tables
 $sql = "SELECT shopping_cart.cart_id, shopping_cart.shoe_id, shopping_cart.shoe_size, shopping_cart.shoe_quantity, shoe_products.shoe_name, shoe_products.shoe_category, shoe_products.shoe_price, shoe_products.shoe_image_src FROM shopping_cart JOIN shoe_products ON shopping_cart.shoe_id = shoe_products.shoe_id;";

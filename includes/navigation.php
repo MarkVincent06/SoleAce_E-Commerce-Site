@@ -44,8 +44,8 @@
       </li>
    </ul>
 
-   <a class="account-link" href="">
-      <h3>My Account</h3>
+   <a class="account-link" href="sign-in.php">
+      <h3>Sign in</h3>
    </a>
 
    <!-- WILL CHANGE THIS TO IMAGE TO ICON LATER -->

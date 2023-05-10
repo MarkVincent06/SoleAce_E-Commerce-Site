@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include '../includes/database.php';
+include './config/dbconn.php';
 
 // INSERTS A NEW DEPARTMENT AT THE DB
 if (isset($_POST['addToCart'])) {
