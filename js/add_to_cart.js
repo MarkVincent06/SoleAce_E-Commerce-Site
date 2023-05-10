@@ -1,6 +1,10 @@
+import { showSuccessMsg } from "./showSuccessToastMsg.js";
+
 $(document).ready(() => {
   // this will add the specific product into the cart
   $(".add-to-cart-btn").click((event) => {
+    event.preventDefault();
+
     const productID = $(event.target)
       .closest(".product-container")
       .find(".hidden-product-id")
@@ -20,8 +24,9 @@ $(document).ready(() => {
         shoeSize: selectedSize,
       },
       success: (response) => {
-        console.log("Added to cart successfully!!!");
-        location.reload();
+        let message = "Product added to the cart successfully!";
+
+        showSuccessMsg(message);
       },
     });
   });

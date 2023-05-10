@@ -1,7 +1,5 @@
 <?php
-session_start();
-
-include './config/dbconn.php';
+include '../config/dbconn.php';
 
 // INSERTS A NEW DEPARTMENT AT THE DB
 if (isset($_POST['addToCart'])) {
@@ -32,9 +30,6 @@ if (isset($_POST['addToCart'])) {
          die("Query error: " . mysqli_error($conn));
       }
    }
-
-   // Show a success message
-   $_SESSION["successToastMsg"] = "Product added to the cart successfully!";
 }
 
 // closing the connection to the db

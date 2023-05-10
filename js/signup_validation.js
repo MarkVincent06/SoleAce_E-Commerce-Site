@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  $("#signup-btn").click((e) => {
+  $("#signup-form").submit((e) => {
     // removes error validation
     if ($(".error").length > 0) {
       $("input").removeClass("error");

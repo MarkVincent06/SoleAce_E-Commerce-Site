@@ -23,17 +23,20 @@ include './crudDB/getFeaturedProducts.php';
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 
+   <!-- FONTAWESOME CDN -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
    <!-- JQUERY MINIFIED CDN -->
    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
    <!-- ADD TO CART JS -->
-   <script src="./js/add_to_cart.js"></script>
-
-   <!-- FONTAWESOME CDN -->
-   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <script src="./js/add_to_cart.js" type="module"></script>
 
    <!-- SUCCESS-TOAST-MESSAGE JS -->
-   <script src="./js/showSuccessToastMsg.js"></script>
+   <script src="./js/showSuccessToastMsg.js" type="module"></script>
+
+   <!-- SUCCESS-TOAST-MESSAGE-2 JS -->
+   <script src="./js/showSuccessToastMsg2.js"></script>
 
    <!-- SWEETALERT CDN -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
@@ -42,13 +45,12 @@ include './crudDB/getFeaturedProducts.php';
 </head>
 
 <body>
-   <!-- This session will display a toast message -->
-   <?php if (isset($_SESSION['successToastMsg'])) : ?>
-      <!-- THIS HIDDEN INPUT WILL BE USED IN JS FILE CALLED `showSuccessToastMsg.js` -->
-      <input id="hiddenToastMsg" type="hidden" value="<?php echo $_SESSION['successToastMsg'];
-                                                      unset($_SESSION['successToastMsg']); ?>">
+   <!-- This session will handle some toast messages -->
+   <?php if (isset($_SESSION['successToastMsg2'])) : ?>
+      <!-- THIS HIDDEN INPUT WILL BE USED IN JS -->
+      <input id="hidden-input" type="hidden" value="<?php echo $_SESSION['successToastMsg2'];
+                                                      unset($_SESSION['successToastMsg2']); ?>">
    <?php endif ?>
-
 
    <!-- START OF NAV -->
    <?php include './includes/navigation.php' ?>
@@ -66,7 +68,7 @@ include './crudDB/getFeaturedProducts.php';
       <section class="featured-container">
          <h2 class="featured--title">FEATURED ITEMS</h2>
 
-         <form class="products-container" method="post" onsubmit="return false;">
+         <form class="products-container" method="POST">
 
             <?php foreach ($featured_products as $product) : ?>
                <div class="product-container">

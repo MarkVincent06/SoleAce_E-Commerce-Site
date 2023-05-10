@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <html lang="en">
 
 <head>
@@ -22,10 +24,23 @@
    <!-- VALIDATION JS -->
    <script src="./js/signup_validation.js" defer></script>
 
-   <title>SoleAce - Signup</title>
+   <!-- ERROR-TOAST-MESSAGE JS -->
+   <script src="./js/showErrorToastMsg.js"></script>
+
+   <!-- SWEETALERT CDN -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+
+   <title>SoleAce - Sign up</title>
 </head>
 
 <body>
+   <!-- This session will display an error message if the email already exist in the db -->
+   <?php if (isset($_SESSION['errorToastMsg'])) : ?>
+      <!-- THIS HIDDEN INPUT WILL BE USED IN JS -->
+      <input id="hidden-input" type="hidden" value="<?php echo $_SESSION['errorToastMsg'];
+                                                      unset($_SESSION['errorToastMsg']); ?>">
+   <?php endif ?>
+
    <!-- START OF LOGO NAV -->
    <nav>
       <div class="business-logo-container">
@@ -38,7 +53,7 @@
 
    <!-- START OF SIGNUP FORM -->
    <main>
-      <form action="./functions/authcode.php" method="POST" class="signup-container">
+      <form action="./functions/authcode.php" method="POST" class="signup-container" id="signup-form">
          <h1 class="form-title">Create account</h1>
 
          <!-- FIRST NAME INPUT -->
@@ -47,7 +62,7 @@
             <input type="text" name="firstname" id="firstname" placeholder="Enter first name">
             <div class="alert-container">
                <i class="fa-solid fa-exclamation"></i>
-               <small>First or last names must contain at least 3 characters</small>
+               <small></small>
             </div>
          </div>
 
@@ -57,17 +72,17 @@
             <input type="text" name="lastname" id="lastname" placeholder="Enter last name">
             <div class="alert-container">
                <i class="fa-solid fa-exclamation"></i>
-               <small>First or last names must contain at least 3 characters</small>
+               <small></small>
             </div>
          </div>
 
          <!-- EMAIL INPUT -->
          <div class="text-input-container form-control">
-            <label for="email">Email address</label>
+            <label for="email">Email</label>
             <input type="text" name="email" id="email" placeholder="Enter email address">
             <div class="alert-container">
                <i class="fa-solid fa-exclamation"></i>
-               <small>First or last names must contain at least 3 characters</small>
+               <small></small>
             </div>
          </div>
 
@@ -77,7 +92,7 @@
             <input type="number" name="phone" id="phone" placeholder="Enter phone number">
             <div class="alert-container">
                <i class="fa-solid fa-exclamation"></i>
-               <small>First or last names must contain at least 3 characters</small>
+               <small></small>
             </div>
          </div>
 
@@ -88,7 +103,7 @@
             <small class="password-tip"><i class="fa-solid fa-lightbulb"></i>Password must contain at least 6 characters</small>
             <div class="alert-container">
                <i class="fa-solid fa-exclamation"></i>
-               <small>First or last names must contain at least 3 characters</small>
+               <small></small>
             </div>
          </div>
 
@@ -98,11 +113,13 @@
             <input type="password" name="confirm-password" id="confirm-password" placeholder="Re-enter password">
             <div class="alert-container">
                <i class="fa-solid fa-exclamation"></i>
-               <small>First or last names must contain at least 3 characters</small>
+               <small></small>
             </div>
          </div>
 
-         <button type="button" class="signup-btn" id="signup-btn" name="signup">Sign up</button>
+         <button type="submit" class="signup-btn" name="signup">Sign up</button>
+
+         <p class="account-action">Already have an account? <a href="./sign-in.php">Sign in</a></p>
       </form>
    </main>
    <!-- END OF SIGNUP FORM -->

@@ -30,7 +30,7 @@ body {
   width: 120px;
 }
 
-.signup-container {
+.signin-container {
   width: 320px;
   border: 1px solid rgba(0, 0, 0, 0.2);
   padding: 14px 18px;
@@ -39,8 +39,7 @@ body {
 }
 
 .text-input-container,
-.password-input-container,
-.number-input-container {
+.password-input-container {
   display: flex;
   flex-direction: column;
   margin: 10px 0;
@@ -53,15 +52,13 @@ body {
 }
 
 .text-input-container > label,
-.password-input-container > label,
-.number-input-container > label {
+.password-input-container > label {
   font-weight: 600;
 }
 
 /* FORM INPUTS */
 .text-input-container > input,
-.password-input-container > input,
-.number-input-container > input {
+.password-input-container > input {
   height: 31px;
   padding: 3px 7px;
   border: 1px solid #a6a6a6;
@@ -79,7 +76,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* BUTTONS */
-.signup-btn {
+.signin-btn {
   display: block;
   cursor: pointer;
   border: none;
@@ -112,17 +109,16 @@ input::-webkit-inner-spin-button {
 
 /* FOCUS, ACTIVES, ETC. */
 .text-input-container > input:focus,
-.password-input-container > input:focus,
-.number-input-container > input:focus {
+.password-input-container > input:focus {
   border-color: #70e000;
   box-shadow: 0 0 0 3px #c8f3fa, 0 1px 2px rgba(15, 17, 17, 0.15) inset;
 }
 
-.signup-btn:hover {
+.signin-btn:hover {
   color: black;
 }
 
-.signup-btn:after {
+.signin-btn:after {
   content: "";
   background: rgb(117, 201, 117);
   position: absolute;
@@ -135,7 +131,7 @@ input::-webkit-inner-spin-button {
   transition: all 0.5s;
 }
 
-.signup-btn:hover:after {
+.signin-btn:hover:after {
   transform: skewX(-45deg) scale(1, 1);
   -webkit-transition: all 0.5s;
   transition: all 0.5s;
@@ -146,16 +142,6 @@ input::-webkit-inner-spin-button {
 }
 
 /* FORM VALIDATIONS */
-.form-control .password-tip {
-  color: rgba(0, 0, 0, 0.5);
-  font-size: 12.5px;
-  margin-top: 2px;
-}
-
-.form-control .password-tip i {
-  margin-right: 5px;
-}
-
 .form-control .alert-container {
   color: #c40000;
   padding: 0 2px;
