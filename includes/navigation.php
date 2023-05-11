@@ -12,6 +12,7 @@
             <li><a href="#">Featured Shoes</a></li>
          </ul>
       </li>
+
       <li>
          Men
 
@@ -44,9 +45,27 @@
       </li>
    </ul>
 
-   <a class="account-link" href="sign-in.php">
-      <h3>Sign in</h3>
-   </a>
+   <?php
+   if (isset($_SESSION['auth'])) {
+   ?>
+      <div class="account-logged-in">
+         <h3 class="username">Hi, <?= $_SESSION['authUser']['username'] ?></h3>
+
+         <div class="account-dropdown-menu">
+            <a href="./sign-out.php" class="sign-out-link">Sign out</a>
+         </div>
+      </div>
+   <?php
+   } else {
+   ?>
+      <a class="sign-in-link" href="sign-in.php">
+         <h3>Sign in</h3>
+      </a>
+   <?php
+   };
+   ?>
+
+
 
    <!-- WILL CHANGE THIS TO IMAGE TO ICON LATER -->
    <a href="./cart.php" class="shopping-cart-link">

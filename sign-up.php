@@ -1,4 +1,15 @@
-<?php session_start(); ?>
+<?php
+
+session_start();
+
+include './functions/myFunctions.php';
+
+if (isset($_SESSION['auth'])) {
+   redirect("index.php", "top-end | 5000 | warning | You are already logged in. Please continue using the site. | 30em");
+}
+
+
+?>
 
 <html lang="en">
 
@@ -24,8 +35,8 @@
    <!-- VALIDATION JS -->
    <script src="./js/signup_validation.js" defer></script>
 
-   <!-- ERROR-TOAST-MESSAGE JS -->
-   <script src="./js/showErrorToastMsg.js"></script>
+   <!-- SWAL-TOAST-MESSAGE JS -->
+   <script src="./js/swalToastMsg.js" type="module"></script>
 
    <!-- SWEETALERT CDN -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
@@ -35,10 +46,10 @@
 
 <body>
    <!-- This session will display an error message if the email already exist in the db -->
-   <?php if (isset($_SESSION['errorToastMsg'])) : ?>
+   <?php if (isset($_SESSION['swalToastMsg'])) : ?>
       <!-- THIS HIDDEN INPUT WILL BE USED IN JS -->
-      <input id="hidden-input" type="hidden" value="<?php echo $_SESSION['errorToastMsg'];
-                                                      unset($_SESSION['errorToastMsg']); ?>">
+      <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
+                                                      unset($_SESSION['swalToastMsg']); ?>">
    <?php endif ?>
 
    <!-- START OF LOGO NAV -->

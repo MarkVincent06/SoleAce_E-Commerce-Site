@@ -32,11 +32,8 @@ include './crudDB/getFeaturedProducts.php';
    <!-- ADD TO CART JS -->
    <script src="./js/add_to_cart.js" type="module"></script>
 
-   <!-- SUCCESS-TOAST-MESSAGE JS -->
-   <script src="./js/showSuccessToastMsg.js" type="module"></script>
-
-   <!-- SUCCESS-TOAST-MESSAGE-2 JS -->
-   <script src="./js/showSuccessToastMsg2.js"></script>
+   <!-- SWAL-TOAST-MESSAGE JS -->
+   <script src="./js/swalToastMsg.js" type="module"></script>
 
    <!-- SWEETALERT CDN -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
@@ -46,10 +43,15 @@ include './crudDB/getFeaturedProducts.php';
 
 <body>
    <!-- This session will handle some toast messages -->
-   <?php if (isset($_SESSION['successToastMsg2'])) : ?>
+   <?php if (isset($_SESSION['swalToastMsg'])) : ?>
       <!-- THIS HIDDEN INPUT WILL BE USED IN JS -->
-      <input id="hidden-input" type="hidden" value="<?php echo $_SESSION['successToastMsg2'];
-                                                      unset($_SESSION['successToastMsg2']); ?>">
+      <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
+                                                      unset($_SESSION['swalToastMsg']);
+                                                      ?>">
+   <?php elseif (isset($_SESSION['swalToastMsg'])) : ?>
+      <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
+                                                      unset($_SESSION['swalToastMsg']);
+                                                      ?>">
    <?php endif ?>
 
    <!-- START OF NAV -->

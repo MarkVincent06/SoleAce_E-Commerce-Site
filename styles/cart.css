@@ -25,7 +25,7 @@ body {
   grid-template-columns: 60% 40%;
   padding: 0 18%;
   margin: 50px 0;
-  /* gap: 50px; */
+  margin-top: 120px;
 }
 
 .cart-container {
@@ -101,6 +101,7 @@ body {
   font-weight: bold;
 }
 
+/* BUTTONS */
 .summary--checkout-button {
   display: block;
   cursor: pointer;

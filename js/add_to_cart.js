@@ -1,4 +1,4 @@
-import { showSuccessMsg } from "./showSuccessToastMsg.js";
+import { showToastMsg } from "./swalToastMsg.js";
 
 $(document).ready(() => {
   // this will add the specific product into the cart
@@ -24,9 +24,17 @@ $(document).ready(() => {
         shoeSize: selectedSize,
       },
       success: (response) => {
-        let message = "Product added to the cart successfully!";
+        let swalToastMsg =
+          "bottom-end | 3000 | success | Product added to the cart successfully! | 28em";
+        let swalToastArr = swalToastMsg.split(" | ");
 
-        showSuccessMsg(message);
+        showToastMsg(
+          swalToastArr[0],
+          swalToastArr[1],
+          swalToastArr[2],
+          swalToastArr[3],
+          swalToastArr[4]
+        );
       },
     });
   });

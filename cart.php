@@ -1,4 +1,5 @@
 <?php
+session_start();
 // gets all the featured product data in the database
 include './crudDB/getShoppingCart.php';
 

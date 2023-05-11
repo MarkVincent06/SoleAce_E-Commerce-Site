@@ -2,6 +2,7 @@
 session_start();
 
 include '../config/dbconn.php';
+include 'myFunctions.php';
 
 if (isset($_POST['signup'])) {
    $firstname = mysqli_real_escape_string($conn, $_POST['firstname']);
@@ -15,16 +16,14 @@ if (isset($_POST['signup'])) {
    $checkEmailQueryRun = mysqli_query($conn, $checkEmailQuery);
 
    if (mysqli_num_rows($checkEmailQueryRun) > 0) {
-      $_SESSION['errorToastMsg'] = "Sorry, this email address is already registered within our system. Please use a different email or try signing in.";
-      header('Location: ../sign-up.php');
+      redirect("../sign-up.php", "top-end | 5000 | error | Sorry, this email address is already registered within our system. Please use a different email or try signing in. | 32em");
    } else {
       // Insert user data in the database
       $insertQuery = "INSERT INTO users (firstname, lastname, email, phone, password) VALUES ('$firstname', '$lastname', '$email', '$phone', '$password')";
       $insertQueryRun = mysqli_query($conn, $insertQuery);
 
       if ($insertQueryRun) {
-         $_SESSION['successToastMsg2'] = "Signed up successfully! Please sign in again.";
-         header('Location: ../sign-in.php');
+         redirect("../sign-in.php", "top-end | 3000 | success | Signed up successfully! Please sign in again. | 30em");
       } else {
          die("Something went wrong!");
       }
@@ -37,23 +36,29 @@ if (isset($_POST['signup'])) {
    $loginQueryRun = mysqli_query($conn, $loginQuery);
 
    if (mysqli_num_rows($loginQueryRun) > 0) {
-      echo "ACCOUNT FOUND!";
-      // $_SESSION['auth'] = true;
 
-      // $userdata = mysqli_fetch_array($loginQueryRun);
-      // $username = $userdata['firstname'] . " " . $userdata['lastname'];
-      // $email = $userdata['email'];
+      $_SESSION['auth'] = true;
 
-      // $_SESSION['authUser'] = [
-      //    'username' => $username,
-      //    'email' => $email,
-      // ];
+      $userdata = mysqli_fetch_array($loginQueryRun);
+      $username = $userdata['firstname'];
+      $email = $userdata['email'];
+      $roleAs = $userdata['role_as'];
 
-      // $_SESSION['successToastMsg2'] = "Signed in successfully! Welcome, " . $userdata['firstname'] . ".";
-      // header('Location: ../index.php');
+      $_SESSION['authUser'] = [
+         'username' => $username,
+         'email' => $email,
+      ];
+
+      $_SESSION['roleAs'] = $roleAs;
+
+      // this will redirect to the admin page if the information for admin is correct else will redirect to the client page
+      if ($roleAs == 1) {
+         redirect("../admin/index.php", "top-end | 3000 | success | Welcome back, admin! You have successfully logged in. | 34em");
+      } else {
+         redirect("../index.php", "top-end | 3000 | success | Signed in successfully! Welcome, " . $userdata['firstname'] . ". | 30em");
+      }
    } else {
-      $_SESSION['errorToastMsg'] = "We were unable to log you in with that email and password. Please double-check your information and try again.";
       $_SESSION['lastEmailEntered'] = $email;
-      header('Location: ../sign-in.php');
+      redirect("../sign-in.php", "top-end | 5000 | error | We were unable to log you in with that email and password. Please double-check your information and try again. | 32em");
    }
 }
