@@ -39,7 +39,7 @@ include '../middleware/adminMiddleware.php';
                                        $('#subcategory').prop('disabled', false);
                                        const subcategoriesJSON = $('#subcategory-hidden-input').val();
                                        const parsedSubcateories = JSON.parse(subcategoriesJSON);
-
+                                       console.log(parsedSubcateories);
                                        $('#subcategory').empty();
                                        $('#subcategory').append($('<option>').text('Please choose a subcategory').attr('selected', true).attr('disabled', true));
                                        parsedSubcateories.map(item => {
@@ -69,10 +69,12 @@ include '../middleware/adminMiddleware.php';
                         <input type="text" class="form-control" id="slug" name="slug" placeholder="Enter slug" required>
                      </div>
                   </div>
+
                   <div class="col-md-12 mb-2">
                      <label class="mb-0" for="small-description">Small Description</label>
                      <textarea row="3" class="form-control" id="small-description" name="small-description" placeholder="Enter small description" required></textarea>
                   </div>
+
                   <div class="col-md-12 mb-2">
                      <label class="mb-0" for="description">Description</label>
                      <textarea row="3" class="form-control" id="description" name="description" placeholder="Enter description" required></textarea>
@@ -98,15 +100,15 @@ include '../middleware/adminMiddleware.php';
                      </div>
                      <div class="col-md-3">
                         <label class="mb-0" for="status">Status</label> </br>
-                        <input type="checkbox" id="status" name="status" required>
+                        <input type="checkbox" id="status" name="status">
                      </div>
                      <div class="col-md-3">
                         <label class="mb-0" for="featured">Feature Product</label> </br>
-                        <input type="checkbox" id=" featured" name="featured" required>
+                        <input type="checkbox" id=" featured" name="featured">
                      </div>
                      <div class="col-md-3">
                         <label class="mb-0" for="trending">Trending</label> </br>
-                        <input type="checkbox" id="trending" name="trending" required>
+                        <input type="checkbox" id="trending" name="trending">
                      </div>
                   </div>
                   <div class="col-md-12 mb-2">

@@ -18,19 +18,24 @@ include '../middleware/adminMiddleware.php';
          ?>
                <div class="card">
                   <div class="card-header">
-                     <h4>Edit Subcategory</h4>
+                     <h4>
+                        Edit Subcategory
+                        <a href="sub-category.php?category=<?= $data['category'] ?>" class="btn btn-primary float-end">Back</a>
+                     </h4>
                   </div>
                   <div class="card-body">
                      <form action="code.php" method="POST" enctype="multipart/form-data">
+
+                        <input type="hidden" name="sub-category-id" value="<?= $data['id'] ?>">
+
                         <div class="row mb-2">
                            <div class="col-md-6">
-                              <input type="hidden" name="sub-category-id" value="<?= $data['id'] ?>">
                               <label class="mb-0" for="name">Name</label>
                               <input value="<?= $data['name'] ?>" type="text" class="form-control" id="name" name="name" placeholder="Enter sub-category name">
                            </div>
                            <div class="col-md-6">
                               <label class="mb-0" for="name">Category</label>
-                              <select class="form-select form-control" aria-label="Default select example" name="category">4
+                              <select class="form-select form-control" aria-label="Default select example" name="category">
                                  <?php
                                  $categories = ["men", "women", "kid"];
                                  foreach ($categories as $category) :
@@ -43,9 +48,7 @@ include '../middleware/adminMiddleware.php';
                               </select>
                            </div>
                         </div>
-                        <div class="row mb-2">
 
-                        </div>
                         <div class="row mb-2">
                            <div class="col-md-6">
                               <label class="mb-0" for="status">Status</label> </br>

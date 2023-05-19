@@ -48,7 +48,8 @@ if (isset($_GET['category'])) {
                         <th>No.</th>
                         <th>Name</th>
                         <th>Status</th>
-                        <th>Action</th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                      </tr>
                   </thead>
                   <tbody>
@@ -62,14 +63,14 @@ if (isset($_GET['category'])) {
                               <?= $newSubCategories[$i]['status'] == '1' ? "Visible" : "Hidden"; ?>
                            </td>
                            <td>
-                              <div class="d-flex gap-3">
-                                 <a href="edit-sub-category.php?id=<?= $newSubCategories[$i]['id'] ?>" class="btn btn-primary">Edit</a>
-                                 <form action="code.php" method="POST">
-                                    <input type="hidden" name="sub-category-id" value="<?= $newSubCategories[$i]['id'] ?>">
-                                    <input type="hidden" name="category" value="<?= $newSubCategories[$i]['category'] ?>">
-                                    <button type="submit" class="btn btn-danger" name="delete-sub-category">Delete</button>
-                                 </form>
-                              </div>
+                              <a href="edit-sub-category.php?id=<?= $newSubCategories[$i]['id'] ?>" class="btn btn-primary">Edit</a>
+                           </td>
+                           <td>
+                              <form action="code.php" method="POST">
+                                 <input type="hidden" name="sub-category-id" value="<?= $newSubCategories[$i]['id'] ?>">
+                                 <input type="hidden" name="category" value="<?= $newSubCategories[$i]['category'] ?>">
+                                 <button type="submit" class="btn btn-danger" name="delete-sub-category">Delete</button>
+                              </form>
                            </td>
                         </tr>
                      <?php

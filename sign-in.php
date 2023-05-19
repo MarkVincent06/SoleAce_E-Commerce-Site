@@ -2,7 +2,7 @@
 
 session_start();
 
-include './functions/myFunctions.php';
+include 'functions/myFunctions.php';
 
 if (isset($_SESSION['auth'])) {
    redirect("index.php", "top-end | 5000 | warning | You are already logged in. Please continue using the site. | 30em");

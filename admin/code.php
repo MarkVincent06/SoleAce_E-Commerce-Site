@@ -84,4 +84,55 @@ if (isset($_POST['add-sub-category'])) {
    } else {
       redirect("add-product.php", "top-end | 3000 | error | Something went wrong. Please try again later. | 30em");
    }
+} else if (isset($_POST['update-product'])) {
+   $productId = $_POST['product-id'];
+   $subcategoryId = $_POST['subcategory-id'];
+
+   $category = $_POST['category'];
+   $name = mysqli_real_escape_string($conn, $_POST['name']);
+   $slug = mysqli_real_escape_string($conn, $_POST['slug']);
+   $smallDescription = mysqli_real_escape_string($conn, $_POST['small-description']);
+   $description = mysqli_real_escape_string($conn, $_POST['description']);
+   $originalPrice = mysqli_real_escape_string($conn, $_POST['original-price']);
+   $sellingPrice = mysqli_real_escape_string($conn, $_POST['selling-price']);
+   $quantity = mysqli_real_escape_string($conn, $_POST['quantity']);
+   $status = isset($_POST['status']) ?  '1' : '0';
+   $featured = isset($_POST['featured']) ?  '1' : '0';
+   $trending = isset($_POST['trending']) ?  '1' : '0';
+   $metaTitle = mysqli_real_escape_string($conn, $_POST['meta-title']);
+   $metaDescription = mysqli_real_escape_string($conn, $_POST['meta-description']);
+   $metaKeywords = mysqli_real_escape_string($conn, $_POST['meta-keywords']);
+
+   $path = "../uploads";
+
+   $newImage = $_FILES['image']['name'];
+   $oldImage = $_POST['old-image'];
+
+   if ($newImage != "") {
+      $imageExtension = pathinfo($newImage, PATHINFO_EXTENSION);
+      $updateFilename = time() . '.' . $imageExtension;
+   } else {
+      $updateFilename = $oldImage;
+   }
+
+   $updateProductQuery = "UPDATE products SET category='$category', sub_category_id='$subcategoryId', name='$name', slug='$slug', small_description='$smallDescription',
+   description='$description', original_price='$originalPrice', selling_price='$sellingPrice', quantity='$quantity', status='$status',
+   featured='$featured', trending='$trending', meta_title='$metaTitle', meta_description='$metaDescription', meta_keywords='$metaKeywords',
+   image='$updateFilename' WHERE id='$productId'";
+
+   $updateProductQueryRun = mysqli_query($conn, $updateProductQuery);
+
+   if ($updateProductQueryRun) {
+      if ($_FILES['image']['name'] != "") {
+         move_uploaded_file($_FILES['image']['tmp_name'], $path . './' . $updateFilename);
+         if (file_exists("../uploads/" . $oldImage)) {
+            unlink("../uploads/" . $oldImage);
+         }
+      }
+      redirect("edit-product.php?id=$productId", "top-end | 3000 | success | Product updated successfully! | 30em");
+   } else {
+      redirect("edit-product.php?id=$productId", "top-end | 3000 | error | Something went wrong. Please try again later. | 30em");
+   }
+} else {
+   redirect("../index.php", "top-end | 4000 | error | You are not authorized to access this page. | 30em");
 }

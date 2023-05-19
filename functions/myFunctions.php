@@ -1,6 +1,6 @@
 <?php
 
-include '../config/dbconn.php';
+include 'config/dbconn.php';
 
 function getAll($table)
 {
@@ -15,6 +15,10 @@ function getAll2($table)
    global $conn;
    $query = "SELECT * FROM $table";
    $queryRun = mysqli_query($conn, $query);
+
+   array_walk_recursive($queryRun, function (&$value) {
+      $value = str_replace("'", "\'", $value);
+   });
    return mysqli_fetch_all($queryRun, MYSQLI_ASSOC);
 }
 
