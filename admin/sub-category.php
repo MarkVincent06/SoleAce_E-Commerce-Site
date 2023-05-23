@@ -1,7 +1,7 @@
 <?php
 
-include './includes/header.php';
 include '../middleware/adminMiddleware.php';
+include './includes/header.php';
 
 if (isset($_GET['category'])) {
    $category = $_GET['category'];
@@ -28,7 +28,7 @@ if (isset($_GET['category'])) {
          $categoryTitle = "Kid's Shoes";
       }
    } else {
-      die("No records found");
+      echo "No records found";
    }
 }
 
@@ -66,11 +66,7 @@ if (isset($_GET['category'])) {
                               <a href="edit-sub-category.php?id=<?= $newSubCategories[$i]['id'] ?>" class="btn btn-primary">Edit</a>
                            </td>
                            <td>
-                              <form action="code.php" method="POST">
-                                 <input type="hidden" name="sub-category-id" value="<?= $newSubCategories[$i]['id'] ?>">
-                                 <input type="hidden" name="category" value="<?= $newSubCategories[$i]['category'] ?>">
-                                 <button type="submit" class="btn btn-danger" name="delete-sub-category">Delete</button>
-                              </form>
+                              <button type="button" class="btn btn-danger delete-sub-category" value="<?= $newSubCategories[$i]['id'] ?>">Delete</button>
                            </td>
                         </tr>
                      <?php

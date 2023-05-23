@@ -1,6 +1,5 @@
 <?php
 
-session_start();
 include '../config/dbconn.php';
 include '../functions/myFunctions.php';
 
@@ -21,10 +20,10 @@ if (isset($_POST['add-sub-category'])) {
 } elseif (isset($_POST['update-sub-category'])) {
    $subCategoryId = mysqli_real_escape_string($conn, $_POST['sub-category-id']);
    $name = mysqli_real_escape_string($conn, $_POST['name']);
-   $category = $_POST['category'];
+
    $status = isset($_POST['status']) ?  '1' : '0';
 
-   $updateSubCategoryQuery = "UPDATE sub_categories SET name='$name', category='$category', status='$status' WHERE id='$subCategoryId'";
+   $updateSubCategoryQuery = "UPDATE sub_categories SET name='$name', status='$status' WHERE id='$subCategoryId'";
 
    $updateSubCategoryQueryRun = mysqli_query($conn, $updateSubCategoryQuery);
 
@@ -33,18 +32,17 @@ if (isset($_POST['add-sub-category'])) {
    } else {
       redirect("edit-sub-category.php?id=$subCategoryId", "top-end | 3000 | error | Something went wrong. Please try again later. | 30em");
    }
-} elseif (isset($_POST['delete-sub-category'])) {
-   $subCategoryId = mysqli_real_escape_string($conn, $_POST['sub-category-id']);
-   $category = mysqli_real_escape_string($conn, $_POST['category']);
+} elseif (isset($_POST['deleteSubcategory'])) {
+   $subCategoryId = mysqli_real_escape_string($conn, $_POST['subcategoryId']);
 
    $deleteSubCategoryQuery = "DELETE FROM sub_categories WHERE id='$subCategoryId'";
 
    $deleteSubCategoryQueryRun = mysqli_query($conn, $deleteSubCategoryQuery);
 
    if ($deleteSubCategoryQueryRun) {
-      redirect("sub-category.php?category=$category", "top-end | 3000 | success | Subcategory deleted successfully! | 30em");
+      echo 200;
    } else {
-      redirect("sub-category.php?category=$category", "top-end | 3000 | error | Something went wrong. Please try again later. | 30em");
+      echo 500;
    }
 } elseif (isset($_POST['add-product'])) {
 
@@ -84,7 +82,7 @@ if (isset($_POST['add-sub-category'])) {
    } else {
       redirect("add-product.php", "top-end | 3000 | error | Something went wrong. Please try again later. | 30em");
    }
-} else if (isset($_POST['update-product'])) {
+} elseif (isset($_POST['update-product'])) {
    $productId = $_POST['product-id'];
    $subcategoryId = $_POST['subcategory-id'];
 
@@ -132,6 +130,25 @@ if (isset($_POST['add-sub-category'])) {
       redirect("edit-product.php?id=$productId", "top-end | 3000 | success | Product updated successfully! | 30em");
    } else {
       redirect("edit-product.php?id=$productId", "top-end | 3000 | error | Something went wrong. Please try again later. | 30em");
+   }
+} elseif (isset($_POST['deleteProduct'])) {
+   $productId = $_POST['productId'];
+
+   $productQuery = "SELECT * FROM products WHERE id='$productId'";
+   $productQueryRun = mysqli_query($conn, $productQuery);
+   $productData = mysqli_fetch_array($productQueryRun);
+   $image = $productData['image'];
+
+   $deleteProductQuery = "DELETE FROM products WHERE id='$productId'";
+   $deleteProductQueryRun = mysqli_query($conn, $deleteProductQuery);
+
+   if ($deleteProductQueryRun) {
+      if (file_exists('../uploads/' . $image)) {
+         unlink('../uploads/' . $image);
+      }
+      echo 200;
+   } else {
+      echo 500;
    }
 } else {
    redirect("../index.php", "top-end | 4000 | error | You are not authorized to access this page. | 30em");

@@ -1,0 +1,85 @@
+:root {
+  --black: #000000;
+  --white: #ffffff;
+  --white2: #f5f5f5;
+  --scarlet: #bb0000;
+  --mango: rgb(246, 191, 49);
+}
+
+footer {
+  background-color: #1f1e1e;
+  padding: 30px 80px;
+  color: var(--white);
+  margin-top: 50px;
+}
+
+footer .footer--upper {
+  display: grid;
+  grid-template-columns: auto 50% auto;
+  gap: 50px;
+}
+
+footer .footer--lower {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+footer h3 {
+  font-size: 20px;
+}
+
+footer p {
+  font-size: 15px;
+}
+
+footer p,
+footer small {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer--upper .footer--about-msg {
+  text-align: justify;
+}
+
+.footer--upper img {
+  height: 75px;
+}
+
+.footer--upper .footer--slogan {
+  font-size: 17px;
+  line-height: 25px;
+  margin-top: 5px;
+}
+
+.footer--upper .footer--slogan span {
+  display: block;
+}
+
+.divider {
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+  margin: 25px 0;
+}
+
+.footer--lower section i {
+  font-size: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 12px;
+  border-radius: 50%;
+  transition: background-color 200ms ease-in-out;
+}
+
+.footer--lower section {
+  display: flex;
+  gap: 12px;
+}
+
+.footer--lower section i:hover {
+  background-color: rgba(246, 191, 49, 0.4);
+  color: var(--mango);
+}
+.footer--lower section i:active {
+  background-color: rgba(246, 191, 49, 0.6);
+  color: var(--mango);
+}

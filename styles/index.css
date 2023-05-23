@@ -128,6 +128,10 @@ body {
   gap: 10px;
 }
 
+.new-products--images-container img {
+  width: 150px;
+}
+
 /* BUTTONS */
 .product--buttons-container {
   display: flex;

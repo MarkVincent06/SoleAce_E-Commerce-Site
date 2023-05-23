@@ -1,7 +1,7 @@
 <?php
 
-include './includes/header.php';
 include '../middleware/adminMiddleware.php';
+include './includes/header.php';
 
 if (isset($_GET['category'])) {
    $category = $_GET['category'];
@@ -41,7 +41,7 @@ if (isset($_GET['category'])) {
             <div class="card-header">
                <h4>All Products - <?= $categoryTitle ?></h4>
             </div>
-            <div class="card-body">
+            <div class="card-body" id="products-table">
                <table class="table table-bordered table-striped">
                   <thead>
                      <tr>
@@ -50,6 +50,8 @@ if (isset($_GET['category'])) {
                         <th>Subcategory</th>
                         <th>Image</th>
                         <th>Status</th>
+                        <th>Featured</th>
+                        <th>Trending</th>
                         <th>Edit</th>
                         <th>Delete</th>
                      </tr>
@@ -73,14 +75,16 @@ if (isset($_GET['category'])) {
                               <?= $newProducts[$i]['status'] == '1' ? "Visible" : "Hidden"; ?>
                            </td>
                            <td>
+                              <?= $newProducts[$i]['featured'] == '1' ? "Yes" : "No"; ?>
+                           </td>
+                           <td>
+                              <?= $newProducts[$i]['trending'] == '1' ? "Yes" : "No"; ?>
+                           </td>
+                           <td>
                               <a href="edit-product.php?id=<?= $newProducts[$i]['id'] ?>" class="btn btn-primary">Edit</a>
                            </td>
                            <td>
-                              <form action="code.php" method="POST">
-                                 <input type="hidden" name="product-id" value="<?= $newProducts[$i]['id'] ?>">
-                                 <input type="hidden" name="category" value="<?= $newProducts[$i]['category'] ?>">
-                                 <button type="submit" class="btn btn-danger" name="delete-product">Delete</button>
-                              </form>
+                              <button type="button" class="btn btn-danger delete-product" value="<?= $newProducts[$i]['id'] ?>">Delete</button>
                            </td>
                         </tr>
                      <?php

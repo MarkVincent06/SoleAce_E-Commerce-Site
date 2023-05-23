@@ -1,7 +1,6 @@
 <?php
-session_start();
 
-// gets all the featured product data in the database
+include 'functions/myFunctions.php';
 include './crudDB/getFeaturedProducts.php';
 
 ?>
@@ -17,6 +16,7 @@ include './crudDB/getFeaturedProducts.php';
    <!-- CSS LINK -->
    <link rel="stylesheet" href="./styles/index.css">
    <link rel="stylesheet" href="./styles/navigation.css">
+   <link rel="stylesheet" href="styles/footer.css">
 
    <!-- GOOGLE FONTS LINK -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,7 +38,7 @@ include './crudDB/getFeaturedProducts.php';
    <!-- SWEETALERT CDN -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 
-   <title>Dashboard - SoleAce</title>
+   <title>Home | SoleAce</title>
 </head>
 
 <body>
@@ -108,16 +108,24 @@ include './crudDB/getFeaturedProducts.php';
          <div class="new-products-subcontainer">
             <h2 class="new-products--title">NEW ITEMS</h2>
             <div class="new-products--images-container">
-               <img src="./uploads/product7.png" alt="A picture of a product">
-               <img src="./uploads/product8.png" alt="A picture of a product">
-               <img src="./uploads/product9.png" alt="A picture of a product">
-               <img src="./uploads/product10.png" alt="A picture of a product">
+               <?php
+               $newProducts = getNewestActive('products', 4);
+               foreach ($newProducts as $item) :
+               ?>
+                  <img src="./uploads/<?= $item['image'] ?>" alt="A picture of a product">
+               <?php
+               endforeach;
+               ?>
             </div>
             <button class="new-products--button">SHOP NOW</button>
          </div>
       </section>
       <!-- END OF NEW PRODUCTS SECTION -->
    </main>
+
+   <!-- START OF FOOTER SECTION -->
+   <?php include './includes/footer.php' ?>
+   <!-- END OF FOOTER SECTION -->
 </body>
 
 </html>

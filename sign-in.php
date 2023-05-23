@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 include 'functions/myFunctions.php';
 
 if (isset($_SESSION['auth'])) {
@@ -19,6 +17,8 @@ if (isset($_SESSION['auth'])) {
 
    <!-- CSS LINK -->
    <link rel="stylesheet" href="./styles/sign-in.css">
+   <link rel="stylesheet" href="styles/footer.css">
+
 
    <!-- GOOGLE FONTS LINK -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,7 +41,7 @@ if (isset($_SESSION['auth'])) {
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
 
 
-   <title>SoleAce - Sign in</title>
+   <title>Sign in | SoleAce</title>
 </head>
 
 <body>
@@ -99,6 +99,10 @@ if (isset($_SESSION['auth'])) {
       </form>
    </main>
    <!-- END OF SIGNIN FORM -->
+
+   <!-- START OF FOOTER SECTION -->
+   <?php include './includes/footer.php' ?>
+   <!-- END OF FOOTER SECTION -->
 
 </body>
 

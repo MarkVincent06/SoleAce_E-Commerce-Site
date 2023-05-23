@@ -28,6 +28,7 @@
 </footer>
 </main>
 
+<script src="assets/js/custom.js"></script>
 <script src="assets/js/bootstrap.bundle.min.js" defer></script>
 <script src="assets/js/perfect-scrollbar.min.js" defer></script>
 <script src="assets/js/smooth-scrollbar.min.js" defer></script>

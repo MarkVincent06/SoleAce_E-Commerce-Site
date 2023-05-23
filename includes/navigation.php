@@ -8,8 +8,8 @@
          New & Featured
 
          <ul class="dropdown-menu">
-            <li><a href="#">New Arrivals</a></li>
-            <li><a href="#">Featured Shoes</a></li>
+            <li><a href="sub-category.php?category=new">New Arrivals</a></li>
+            <li><a href="sub-category.php?category=featured">Featured Shoes</a></li>
          </ul>
       </li>
 
@@ -17,30 +17,53 @@
          Men
 
          <ul class="dropdown-menu">
-            <li><a href="#">All Shoes For Men</a></li>
-            <li><a href="#">Casual</a></li>
-            <li><a href="#">Sneakers</a></li>
-            <li><a href="#">Running</a></li>
+            <li><a href="sub-category.php?category=men&subcat=all">All Shoes For Men</a></li>
+            <?php
+            $subCategories = getAllActive('sub_categories');
+
+            if (mysqli_num_rows($subCategories) > 0) {
+               foreach ($subCategories as $item) :
+                  if ($item['category'] === "men") {
+            ?>
+                     <li><a href="sub-category.php?category=men&subcat=<?= $item['name'] ?>"><?= $item['name'] ?></a></li>
+            <?php
+                  }
+               endforeach;
+            }
+            ?>
          </ul>
       </li>
       <li>
          Women
 
          <ul class="dropdown-menu">
-            <li><a href="#">All Shoes For Women</a></li>
-            <li><a href="#">Casual</a></li>
-            <li><a href="#">Sneakers</a></li>
-            <li><a href="#">Running</a></li>
+            <li><a href="sub-category.php?category=women&subcat=all">All Shoes For Women</a></li>
+            <?php
+            foreach ($subCategories as $item) :
+               if ($item['category'] === "women") {
+            ?>
+                  <li><a href="sub-category.php?category=women&subcat=<?= $item['name'] ?>"><?= $item['name'] ?></a></li>
+            <?php
+               }
+            endforeach;
+            ?>
          </ul>
       </li>
       <li>
          Kids
 
          <ul class="dropdown-menu">
-            <li><a href="#">All Shoes For Kids</a></li>
-            <li><a href="#">Casual</a></li>
-            <li><a href="#">Sneakers</a></li>
-            <li><a href="#">Running</a></li>
+            <li><a href="sub-category.php?category=kid&subcat=all">All Shoes For Kids</a></li>
+
+            <?php
+            foreach ($subCategories as $item) :
+               if ($item['category'] === "kid") {
+            ?>
+                  <li><a href="sub-category.php?category=kid&subcat=<?= $item['name'] ?>"><?= $item['name'] ?></a></li>
+            <?php
+               }
+            endforeach;
+            ?>
          </ul>
       </li>
    </ul>

@@ -1,6 +1,7 @@
 <?php
-session_start();
-// gets all the featured product data in the database
+
+include 'functions/myFunctions.php';
+
 include './crudDB/getShoppingCart.php';
 
 ?>
@@ -16,6 +17,7 @@ include './crudDB/getShoppingCart.php';
    <!-- CSS LINK -->
    <link rel="stylesheet" href="./styles/cart.css">
    <link rel="stylesheet" href="./styles/navigation.css">
+   <link rel="stylesheet" href="styles/footer.css">
 
    <!-- GOOGLE FONTS LINK -->
    <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -112,6 +114,10 @@ include './crudDB/getShoppingCart.php';
          </section>
       </form>
       <!-- END OF CART SUMMARY -->
+
+      <!-- START OF FOOTER SECTION -->
+      <?php include './includes/footer.php' ?>
+      <!-- END OF FOOTER SECTION -->
    </main>
 </body>
 

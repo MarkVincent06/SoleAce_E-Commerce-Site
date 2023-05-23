@@ -1,7 +1,7 @@
 <?php
 
-include './includes/header.php';
 include '../middleware/adminMiddleware.php';
+include './includes/header.php';
 
 ?>
 
@@ -35,7 +35,7 @@ include '../middleware/adminMiddleware.php';
                            </div>
                            <div class="col-md-6">
                               <label class="mb-0" for="name">Category</label>
-                              <select class="form-select form-control" aria-label="Default select example" name="category">
+                              <select class="form-select form-control" aria-label="Default select example" name="category" disabled>
                                  <?php
                                  $categories = ["men", "women", "kid"];
                                  foreach ($categories as $category) :

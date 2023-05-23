@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 include '../config/dbconn.php';
 include 'myFunctions.php';

@@ -31,6 +31,3 @@ if (isset($_POST['addToCart'])) {
       }
    }
 }
-
-// closing the connection to the db
-mysqli_close($conn);

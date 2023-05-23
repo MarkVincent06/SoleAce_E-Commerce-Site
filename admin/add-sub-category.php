@@ -1,7 +1,7 @@
 <?php
 
-include './includes/header.php';
 include '../middleware/adminMiddleware.php';
+include './includes/header.php';
 
 ?>
 
@@ -35,6 +35,8 @@ include '../middleware/adminMiddleware.php';
                         <input type="checkbox" id="status" name="status">
                      </div>
                   </div>
+
+                  <small class="mb-2 d-inline-block text-danger"><i class="fa-solid fa-circle-exclamation me-1"></i>Once you add this subcategory, you won't be able to change it's category.</small>
 
                   <div class="col-md-12">
                      <button type="submit" class="btn btn-primary" name="add-sub-category">Save</button>
