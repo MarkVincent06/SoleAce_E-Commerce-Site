@@ -38,14 +38,20 @@ body {
 .products-container {
   display: grid;
   grid-template-columns: auto auto auto;
-  gap: 30px;
+  row-gap: 80px;
   place-items: center;
 }
 
 .product-container {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 270px;
+}
+
+.product-selection {
+  margin-bottom: 5px;
+  display: flex;
+  gap: 12px;
 }
 
 .new-products-container {
@@ -86,11 +92,38 @@ body {
   margin-bottom: 20px;
 }
 
+.product--tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 15px;
+  font-weight: 600;
+  color: var(--white2);
+  min-width: 80px;
+  text-align: center;
+}
+
+.product--tag.soldout {
+  background-color: var(--black);
+}
+
+.product--tag.featured-trending {
+  background: linear-gradient(to right, #f6bf31, #bb0000);
+}
+
+.product--tag.featured {
+  background-color: var(--mango);
+}
+
+.product--tag.trending {
+  background-color: var(--scarlet);
+}
+
 .product--name {
   font-size: 25px;
 }
 
-.product--category {
+.product--sub-category {
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 10px;
@@ -100,8 +133,26 @@ body {
   margin-bottom: 10px;
 }
 
-.product--price {
+.product--selling-price {
   font-size: 17px;
+}
+
+.product--original-price {
+  font-size: 17px;
+  display: inline-block;
+  margin-left: 5px;
+  position: relative;
+  opacity: 0.6;
+}
+
+.product--original-price::after {
+  content: "";
+  position: absolute;
+  bottom: 45%;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid;
+  transform: translateY(50%);
 }
 
 .new-products--title {
@@ -133,6 +184,13 @@ body {
 }
 
 /* BUTTONS */
+.product--wishlist-btn {
+  position: absolute;
+  font-size: 25px;
+  top: 5px;
+  right: 5px;
+}
+
 .product--buttons-container {
   display: flex;
   gap: 10px;
@@ -164,11 +222,21 @@ body {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  text-align: center;
 }
 
 /* LINKS */
+.product-container .more-details-link {
+  color: var(--black);
+  position: relative;
+  transition: all 300ms ease-in-out;
+}
 
 /* HOVERS, ACTIVES, ETC. */
+.product-container .more-details-link:hover {
+  opacity: 0.7;
+}
+
 .product--button:hover,
 .new-products--button:hover {
   color: black;

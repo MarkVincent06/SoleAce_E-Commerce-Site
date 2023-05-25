@@ -34,7 +34,7 @@ if (isset($_GET['category'])) {
                   }
                   break;
                } elseif ($category === "women" && $subcategory === $item['name']) {
-                  if ($item['name'] === "Sneakers") {
+                  if ($item['name'] === "Sneakers" || $item['name'] === "Casual") {
                      $categoryTitle = ucfirst($category) . "'s " . $item['name'];
                   } else {
                      $categoryTitle = ucfirst($category) . "'s " . $item['name'] . " Shoes";
@@ -99,8 +99,8 @@ if ($categoryTitle == null) {
    <!-- JQUERY MINIFIED CDN -->
    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
-   <!-- ADD TO CART JS -->
-   <script src="./js/add_to_cart.js" type="module"></script>
+   <!-- CUSTOM JS -->
+   <script src="./js/custom.js" type="module"></script>
 
    <!-- SORTING JS -->
    <script src="./js/sort.js" type="module" defer></script>
@@ -147,102 +147,124 @@ if ($categoryTitle == null) {
          </ul>
       </div>
 
+      <?php
+      if ($category != "new" && $category != "featured") {
+         if (isset($_GET['sort'])) {
+            $sortType = $_GET['sort'];
+            if ($subcategory === "all") {
+               $products = getAllByCategoryActive('products', $category, $sortType);
+            } else {
+               $products = getByCategoryAndSubcategoryActive('products', $category, $subcategory, $sortType);
+            }
+         } else {
+            $sortType = "featured";
+
+            if ($subcategory === "all") {
+               $products = getAllByCategoryActive('products', $category, $sortType);
+            } else {
+               $products = getByCategoryAndSubcategoryActive('products', $category, $subcategory, $sortType);
+            }
+         }
+      } else {
+         if ($category === "new") {
+            $products = getNewestActive("products", 6);
+         } elseif ($category === "featured") {
+            $products = getFeaturedActive("products", 20);
+         }
+      }
+      ?>
+
+
       <section class="subcategory-container">
          <div class="subcategory--header">
-            <h2 class="subcategory--header-title"><?= $categoryTitle ?> <span>[9]</span></h2>
-            <div class="sort">
-               <h3>Sort By: </h3>
-               <select name="sort-type" id="sort-input">
-                  <option value="newest">Newest</option>
-                  <option value="featured">Featured</option>
-                  <option value="price-high-low">Price: High-Low</option>
-                  <option value="price-low-high">Price: Low-High</option>
-               </select>
-            </div>
+            <h2 class="subcategory--header-title"><?= $categoryTitle ?> <span>[<?= count($products) ?>]</span></h2>
+            <?php if ($category != "new" && $category != "featured") : ?>
+               <div class="sort">
+                  <h3>Sort By: </h3>
+                  <select name="sort-type" id="sort-input">
+                     <option value="featured" <?= $sortType === "featured" ? 'selected' : '' ?>>Featured</option>
+                     <option value="newest" <?= $sortType === "newest" ? 'selected' : '' ?>>Newest</option>
+                     <option value="price-high-low" <?= $sortType === "price-high-low" ? 'selected' : '' ?>>Price: High-Low</option>
+                     <option value="price-low-high" <?= $sortType === "price-low-high" ? 'selected' : '' ?>>Price: Low-High</option>
+                  </select>
+               </div>
+            <?php endif; ?>
          </div>
 
          <form class="products-container" method="POST">
 
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product1.png" />
-               <h3 class="product--name">Sample Name</h3>
-               <p class="product--category">Sample subcategory</p>
-               <div class="product-selection">
-                  <label for="product-size">Size</label>
-                  <select name="product-size" id="product-size">
-                     <option value="9">9</option>
-                     <option value="10">10</option>
-                     <option value="11">11</option>
-                     <option value="12">12</option>
-                     <option value="13">13</option>
-                  </select>
+            <?php foreach ($products as $product) : ?>
+               <div class="product-container">
+                  <a class="more-details-link" href="product-view.php?product=<?= $product['slug'] ?>">
+                     <img class="product--image" src="./uploads/<?= $product['image'] ?>" />
+                     <h3 class="product--name"><?= $product['name'] ?></h3>
+                     <p class="product--sub-category">
+                        <?php
+                        if ($product['subcategory_name'] === "Boys" || $product['subcategory_name'] === "Girls") {
+                           echo "Kid's Shoes";
+                        } elseif ($product['subcategory_name'] === "Sneakers") {
+                           echo ucfirst($product['category']) . "'s " . $product['subcategory_name'];
+                        } else {
+                           echo ucfirst($product['category']) . "'s " . $product['subcategory_name'] . " Shoes";
+                        }
+                        ?>
+                     </p>
+
+                     <?php
+                     $tagName = null;
+                     $tagType = null;
+                     if ($product['quantity']) {
+                        if ($product['featured'] && $product['trending']) {
+                           $tagType = "product--tag featured-trending";
+                           $tagName = "FEATURED & HOT";
+                        } elseif ($product['featured']) {
+                           $tagType = "product--tag featured";
+                           $tagName = "FEATURED";
+                        } else if ($product['trending']) {
+                           $tagType = "product--tag trending";
+                           $tagName = "HOT";
+                        }
+                     } else {
+                        $tagType = "product--tag soldout";
+                        $tagName = "SOLD OUT";
+                     }
+                     ?>
+
+                     <?php if ($tagType && $tagName) : ?>
+                        <p class="<?= $tagType ?>"><?= $tagName ?></p>
+                     <?php endif; ?>
+
+                     <i class="fa-regular fa-heart product--wishlist-btn"></i>
+                  </a>
+                  <div class="product-selection">
+                     <div>
+                        <label for="product-size">Size</label>
+                        <select name="product-size" id="product-size">
+                           <option value="9">9</option>
+                           <option value="10">10</option>
+                           <option value="11">11</option>
+                           <option value="12">12</option>
+                           <option value="13">13</option>
+                        </select>
+                     </div>
+                     <div>
+                        <label for="product-quantity">Quantity</label>
+                        <select name="product-quantity" id="product-quantity">
+                           <option value="1">1</option>
+                           <option value="2">2</option>
+                           <option value="3">3</option>
+                           <option value="4">4</option>
+                           <option value="5">5</option>
+                        </select>
+                     </div>
+                  </div>
+                  <p class="product--selling-price">₱ <?= number_format($product['selling_price']) ?> <?php if ($product['original_price'] > $product['selling_price']) : ?><span class="product--original-price">₱ <?= number_format($product['original_price']) ?></span> <?php endif; ?></p>
+                  <div class="product--buttons-container">
+                     <button class="product--button" style="background-color: #F6BF31;">BUY NOW<i class="fa-solid fa-money-bills" style="margin-left: 7px"></i></button>
+                     <button class="product--button add-to-cart-btn" style="background-color: #BB0000;" value="<?= $product['id'] ?>">ADD TO CART<i class="fa-solid fa-cart-plus" style="margin-left: 7px"></i></button>
+                  </div>
                </div>
-               <p class="product--price">₱ 12000</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button add-to-cart-btn" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product1.png" />
-               <h3 class="product--name">Sample Name</h3>
-               <p class="product--category">Sample subcategory</p>
-               <div class="product-selection">
-                  <label for="product-size">Size</label>
-                  <select name="product-size" id="product-size">
-                     <option value="9">9</option>
-                     <option value="10">10</option>
-                     <option value="11">11</option>
-                     <option value="12">12</option>
-                     <option value="13">13</option>
-                  </select>
-               </div>
-               <p class="product--price">₱ 12000</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button add-to-cart-btn" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product1.png" />
-               <h3 class="product--name">Sample Name</h3>
-               <p class="product--category">Sample subcategory</p>
-               <div class="product-selection">
-                  <label for="product-size">Size</label>
-                  <select name="product-size" id="product-size">
-                     <option value="9">9</option>
-                     <option value="10">10</option>
-                     <option value="11">11</option>
-                     <option value="12">12</option>
-                     <option value="13">13</option>
-                  </select>
-               </div>
-               <p class="product--price">₱ 12000</p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button add-to-cart-btn" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
-            <div class="product-container">
-               <img class="product--image" src="./uploads/product1.png" />
-               <h3 class="product--name">Sample Name</h3>
-               <p class="product--category">Sample subcategory</p>
-               <div class="product-selection">
-                  <label for="product-size">Size</label>
-                  <select name="product-size" id="product-size">
-                     <option value="9">9</option>
-                     <option value="10">10</option>
-                     <option value="11">11</option>
-                     <option value="12">12</option>
-                     <option value="13">13</option>
-                  </select>
-               </div>
-               <p class="product--selling-price">₱ 12000 <span class="product--original-price">₱ 7580</span></p>
-               <div class="product--buttons-container">
-                  <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                  <button class="product--button add-to-cart-btn" style="background-color: #BB0000;">ADD TO CART</button>
-               </div>
-            </div>
+            <?php endforeach; ?>
 
          </form>
       </section>

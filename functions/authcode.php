@@ -39,11 +39,13 @@ if (isset($_POST['signup'])) {
       $_SESSION['auth'] = true;
 
       $userdata = mysqli_fetch_array($loginQueryRun);
+      $userId = $userdata['id'];
       $username = $userdata['firstname'];
       $email = $userdata['email'];
       $roleAs = $userdata['role_as'];
 
       $_SESSION['authUser'] = [
+         'userId' => $userId,
          'username' => $username,
          'email' => $email,
       ];

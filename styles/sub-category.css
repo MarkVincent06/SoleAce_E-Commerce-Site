@@ -13,6 +13,10 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   width: 100%;
   height: 100vh;
@@ -52,14 +56,21 @@ body {
 .products-container {
   display: grid;
   grid-template-columns: auto auto auto;
-  gap: 30px;
+  gap: 50px;
   justify-content: space-between;
+  margin-top: 30px;
 }
 
 .product-container {
   display: flex;
   flex-direction: column;
-  width: 250px;
+  width: 300px;
+}
+
+.product-selection {
+  margin-bottom: 5px;
+  display: flex;
+  gap: 12px;
 }
 
 /* TYPOGRAPHY */
@@ -76,19 +87,43 @@ body {
   opacity: 0.7;
 }
 
+.product--tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px 15px;
+  font-weight: 600;
+  color: var(--white2);
+  min-width: 80px;
+  text-align: center;
+}
+
+.product--tag.soldout {
+  background-color: var(--black);
+}
+
+.product--tag.featured-trending {
+  background: linear-gradient(to right, #f6bf31, #bb0000);
+}
+
+.product--tag.featured {
+  background-color: var(--mango);
+}
+
+.product--tag.trending {
+  background-color: var(--scarlet);
+}
+
 .product--name {
   font-size: 25px;
   margin-bottom: -5px;
 }
 
-.product--category {
+.product--sub-category {
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 400;
   margin-bottom: 5px;
-}
-
-.product-selection {
-  margin-bottom: 5px;
+  color: rgba(0, 0, 0, 0.5);
 }
 
 .product--selling-price {
@@ -97,19 +132,35 @@ body {
 
 .product--original-price {
   font-size: 17px;
-  text-decoration: line-through;
-  opacity: 0.7;
   display: inline-block;
   margin-left: 5px;
+  position: relative;
+  opacity: 0.6;
+}
+
+.product--original-price::after {
+  content: "";
+  position: absolute;
+  bottom: 45%;
+  left: 0;
+  right: 0;
+  border-bottom: 1px solid;
+  transform: translateY(50%);
 }
 
 /* IMAGES */
 .product--image {
   height: 220px;
-  width: 270px;
+  width: 100%;
 }
 
 /* LINKS */
+.product-container .more-details-link {
+  color: var(--black);
+  position: relative;
+  transition: all 300ms ease-in-out;
+}
+
 .subcategories--links a {
   font-size: 16px;
   font-weight: 600;
@@ -122,6 +173,13 @@ body {
 }
 
 /* BUTTONS */
+.product--wishlist-btn {
+  position: absolute;
+  font-size: 25px;
+  top: 5px;
+  right: 5px;
+}
+
 .product--buttons-container {
   display: flex;
   gap: 10px;
@@ -149,6 +207,10 @@ body {
 .subcategories--links a:active,
 .subcategories--links a.active {
   color: rgba(246, 191, 49, 1);
+}
+
+.product-container .more-details-link:hover {
+  opacity: 0.7;
 }
 
 .product--button:hover {

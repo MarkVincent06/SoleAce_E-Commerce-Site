@@ -1,7 +1,6 @@
 <?php
 
 include 'functions/myFunctions.php';
-include './crudDB/getFeaturedProducts.php';
 
 ?>
 
@@ -29,8 +28,8 @@ include './crudDB/getFeaturedProducts.php';
    <!-- JQUERY MINIFIED CDN -->
    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
-   <!-- ADD TO CART JS -->
-   <script src="./js/add_to_cart.js" type="module"></script>
+   <!-- CUSTOM JS -->
+   <script src="./js/custom.js" type="module"></script>
 
    <!-- SWAL-TOAST-MESSAGE JS -->
    <script src="./js/swalToastMsg.js" type="module"></script>
@@ -72,29 +71,79 @@ include './crudDB/getFeaturedProducts.php';
 
          <form class="products-container" method="POST">
 
-            <?php foreach ($featured_products as $product) : ?>
+            <?php
+            $featuredProducts = getFeaturedActive("products", 6);
+
+            foreach ($featuredProducts as $product) :
+            ?>
                <div class="product-container">
+                  <a class="more-details-link" href="product-view.php?product=<?= $product['slug'] ?>">
+                     <img class="product--image" src="./uploads/<?= $product['image'] ?>" />
+                     <h3 class="product--name"><?= $product['name'] ?></h3>
+                     <p class="product--sub-category">
+                        <?php
+                        if ($product['subcategory_name'] === "Boys" || $product['subcategory_name'] === "Girls") {
+                           echo "Kid's Shoes";
+                        } elseif ($product['subcategory_name'] === "Sneakers") {
+                           echo ucfirst($product['category']) . "'s " . $product['subcategory_name'];
+                        } else {
+                           echo ucfirst($product['category']) . "'s " . $product['subcategory_name'] . " Shoes";
+                        }
+                        ?>
+                     </p>
 
-                  <!-- This hidden input is will store the id of the product and will be used for buying/adding to cart -->
-                  <input class="hidden-product-id" type="hidden" value="<?php echo $product['shoe_id'] ?>">
+                     <?php
+                     $tagName = null;
+                     $tagType = null;
+                     if ($product['quantity']) {
+                        if ($product['featured'] && $product['trending']) {
+                           $tagType = "product--tag featured-trending";
+                           $tagName = "FEATURED & HOT";
+                        } elseif ($product['featured']) {
+                           $tagType = "product--tag featured";
+                           $tagName = "FEATURED";
+                        } else if ($product['trending']) {
+                           $tagType = "product--tag trending";
+                           $tagName = "HOT";
+                        }
+                     } else {
+                        $tagType = "product--tag soldout";
+                        $tagName = "SOLD OUT";
+                     }
+                     ?>
 
-                  <img class="product--image" src="<?php echo $product['shoe_image_src'] ?>" />
-                  <h3 class="product--name"><?php echo $product['shoe_name'] ?></h3>
-                  <p class="product--category"><?php echo $product['shoe_category'] ?></p>
+                     <?php if ($tagType && $tagName) : ?>
+                        <p class="<?= $tagType ?>"><?= $tagName ?></p>
+                     <?php endif; ?>
+
+                     <i class="fa-regular fa-heart product--wishlist-btn"></i>
+                  </a>
                   <div class="product-selection">
-                     <label for="product-size">Size</label>
-                     <select name="product-size" id="product-size">
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                        <option value="13">13</option>
-                     </select>
+                     <div>
+                        <label for="product-size">Size</label>
+                        <select name="product-size" id="product-size">
+                           <option value="9">9</option>
+                           <option value="10">10</option>
+                           <option value="11">11</option>
+                           <option value="12">12</option>
+                           <option value="13">13</option>
+                        </select>
+                     </div>
+                     <div>
+                        <label for="product-quantity">Quantity</label>
+                        <select name="product-quantity" id="product-quantity">
+                           <option value="1">1</option>
+                           <option value="2">2</option>
+                           <option value="3">3</option>
+                           <option value="4">4</option>
+                           <option value="5">5</option>
+                        </select>
+                     </div>
                   </div>
-                  <p class="product--price">₱ <?php echo $product['shoe_price'] ?></p>
+                  <p class="product--selling-price">₱ <?= number_format($product['selling_price']) ?> <?php if ($product['original_price'] > $product['selling_price']) : ?><span class="product--original-price">₱ <?= number_format($product['original_price']) ?></span> <?php endif; ?></p>
                   <div class="product--buttons-container">
-                     <button class="product--button" style="background-color: #F6BF31;">BUY NOW</button>
-                     <button class="product--button add-to-cart-btn" style="background-color: #BB0000;">ADD TO CART</button>
+                     <button class="product--button" style="background-color: #F6BF31;">BUY NOW<i class="fa-solid fa-money-bills" style="margin-left: 7px"></i></button>
+                     <button class="product--button add-to-cart-btn" style="background-color: #BB0000;" value="<?= $product['id'] ?>">ADD TO CART<i class="fa-solid fa-cart-plus" style="margin-left: 7px"></i></button>
                   </div>
                </div>
             <?php endforeach; ?>
@@ -104,7 +153,7 @@ include './crudDB/getFeaturedProducts.php';
       <!-- END OF FEATURED PRODUCTS -->
 
       <!-- START OF NEW PRODUCTS SECTION -->
-      <section class="new-products-container">
+      <section class=" new-products-container">
          <div class="new-products-subcontainer">
             <h2 class="new-products--title">NEW ITEMS</h2>
             <div class="new-products--images-container">
@@ -117,7 +166,7 @@ include './crudDB/getFeaturedProducts.php';
                endforeach;
                ?>
             </div>
-            <button class="new-products--button">SHOP NOW</button>
+            <a href="sub-category.php?category=new" class="new-products--button">SHOP NOW</a>
          </div>
       </section>
       <!-- END OF NEW PRODUCTS SECTION -->
