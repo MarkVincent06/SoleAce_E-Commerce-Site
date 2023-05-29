@@ -111,7 +111,7 @@ function getCartItems()
 {
    global $conn;
    $userId = $_SESSION['authUser']['userId'];
-   $query = "SELECT c.id as cid, c.product_id, c.product_size, c.product_quantity, s.name as sname, p.id as pid, p.name as pname, p.category, p.image, p.selling_price FROM carts c, products p, sub_categories s WHERE c.product_id = p.id AND c.user_id ='5' AND p.sub_category_id = s.id AND s.status = 1 ORDER BY c.created_at DESC";
+   $query = "SELECT c.id as cid, c.product_id, c.product_size, c.product_quantity, s.name as sname, p.id as pid, p.name as pname, p.category, p.image, p.selling_price FROM carts c, products p, sub_categories s WHERE c.product_id = p.id AND c.user_id ='$userId' AND p.sub_category_id = s.id AND s.status = 1 ORDER BY c.created_at DESC";
    $queryRun = mysqli_query($conn, $query);
    $result = mysqli_fetch_all($queryRun, MYSQLI_ASSOC);
    return $result;

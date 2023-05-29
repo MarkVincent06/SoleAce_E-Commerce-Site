@@ -62,10 +62,6 @@ if (isset($_GET['product'])) {
       <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
                                                       unset($_SESSION['swalToastMsg']);
                                                       ?>">
-   <?php elseif (isset($_SESSION['swalToastMsg'])) : ?>
-      <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
-                                                      unset($_SESSION['swalToastMsg']);
-                                                      ?>">
    <?php endif ?>
 
    <!-- START OF NAV -->
@@ -143,7 +139,7 @@ if (isset($_GET['product'])) {
             <div class="product-buttons-container">
                <button class="product-button" style="background-color: #F6BF31;">BUY NOW<i class="fa-solid fa-money-bills" style="margin-left: 7px"></i></button>
                <button class="product-button add-to-cart-btn" style="background-color: #BB0000;" value="<?= $product['id'] ?>">ADD TO CART<i class="fa-solid fa-cart-plus" style="margin-left: 7px"></i></button>
-               <button class="product-wishlist-button"><i class="fa-regular fa-heart"></i></button>
+               <!-- <button class="product-wishlist-button"><i class="fa-regular fa-heart"></i></button> -->
             </div>
             <div class="product-desc">
                <p>Product Description:</p>

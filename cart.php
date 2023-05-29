@@ -49,6 +49,12 @@ include 'authenticate.php';
 
             <?php
             $cartItems = getCartItems();
+            if (!$cartItems) :
+            ?>
+               <p style="font-size: 18px;">There are no items in your cart.</p>
+
+            <?php
+            endif;
 
             $totalPrice = 0;
             foreach ($cartItems as $citem) :
@@ -100,8 +106,8 @@ include 'authenticate.php';
                      </div>
 
                      <div style="margin-top: 10px;">
-                        <button class="wishlist"><i class="fa-regular fa-heart"></i></button>
-                        <button class="trashcan delete-item" value="<?= $citem['product_id'] ?>"><i class="fa-regular fa-trash-can"></i></button>
+                        <!-- <button class="wishlist"><i class="fa-regular fa-heart"></i></button> -->
+                        <button class="trashcan delete-item" value="<?= $citem['cid'] ?>"><i class="fa-regular fa-trash-can"></i></button>
                      </div>
                   </div>
                   <small class="cart--product-price">₱ <?= number_format($citem['selling_price']); ?></small>
@@ -131,7 +137,11 @@ include 'authenticate.php';
 
             <div class="summary--hori-line"></div>
 
-            <button class="summary--checkout-button">Checkout</button>
+            <?php if ($cartItems) : ?>
+               <a class="summary--checkout-button" href="checkout.php">Checkout</a>
+            <?php else : ?>
+               <a class="summary--disabled-checkout-button">Checkout</a>
+            <?php endif; ?>
          </section>
       </form>
       <!-- END OF CART SUMMARY -->

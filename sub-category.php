@@ -121,10 +121,6 @@ if ($categoryTitle == null) {
       <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
                                                       unset($_SESSION['swalToastMsg']);
                                                       ?>">
-   <?php elseif (isset($_SESSION['swalToastMsg'])) : ?>
-      <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
-                                                      unset($_SESSION['swalToastMsg']);
-                                                      ?>">
    <?php endif ?>
 
    <!-- START OF NAV -->
@@ -234,7 +230,7 @@ if ($categoryTitle == null) {
                         <p class="<?= $tagType ?>"><?= $tagName ?></p>
                      <?php endif; ?>
 
-                     <i class="fa-regular fa-heart product--wishlist-btn"></i>
+                     <!-- <i class="fa-regular fa-heart product--wishlist-btn"></i> -->
                   </a>
                   <div class="product-selection">
                      <div>

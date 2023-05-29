@@ -49,10 +49,6 @@ if (isset($_SESSION['auth'])) {
    <?php if (isset($_SESSION['swalToastMsg'])) : ?>
       <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
                                                       unset($_SESSION['swalToastMsg']); ?>">
-   <?php elseif (isset($_SESSION['swalToastMsg'])) : ?>
-      <input id="toastMsg-input" type="hidden" value="<?php echo $_SESSION['swalToastMsg'];
-                                                      unset($_SESSION['swalToastMsg']);
-                                                      ?>">
    <?php endif ?>
 
    <!-- START OF LOGO NAV -->

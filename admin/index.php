@@ -32,8 +32,13 @@ include './includes/header.php';
                               <i class="material-icons opacity-10">weekend</i>
                            </div>
                            <div class="text-end pt-1">
-                              <p class="text-sm mb-0 text-capitalize">Bookings</p>
-                              <h4 class="mb-0">281</h4>
+                              <?php
+                              $usersData = getAll("users");
+                              $users = mysqli_fetch_all($usersData, MYSQLI_ASSOC)
+
+                              ?>
+                              <p class="text-sm mb-0">No. of Users</p>
+                              <h4 class="mb-0"><?= count($users) ?></h4>
                            </div>
                         </div>
 
@@ -53,8 +58,12 @@ include './includes/header.php';
                               <i class="material-icons opacity-10">leaderboard</i>
                            </div>
                            <div class="text-end pt-1">
-                              <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                              <h4 class="mb-0">2,300</h4>
+                              <?php
+                              $subCategoriesData = getAll("sub_categories");
+                              $subCategories = mysqli_fetch_all($subCategoriesData, MYSQLI_ASSOC)
+                              ?>
+                              <p class="text-sm mb-0">No. of Subcategories</p>
+                              <h4 class="mb-0"><?= count($subCategories) ?></h4>
                            </div>
                         </div>
 
@@ -75,8 +84,12 @@ include './includes/header.php';
                               <i class="material-icons opacity-10">store</i>
                            </div>
                            <div class="text-end pt-1">
-                              <p class="text-sm mb-0 text-capitalize">Revenue</p>
-                              <h4 class="mb-0">34k</h4>
+                              <?php
+                              $productsData = getAll("products");
+                              $products = mysqli_fetch_all($productsData, MYSQLI_ASSOC)
+                              ?>
+                              <p class="text-sm mb-0">No. of Products</p>
+                              <h4 class="mb-0"><?= count($products) ?></h4>
                            </div>
                         </div>
                         <hr class="horizontal my-0 dark" />
@@ -95,8 +108,8 @@ include './includes/header.php';
                               <i class="material-icons opacity-10">person_add</i>
                            </div>
                            <div class="text-end pt-1">
-                              <p class="text-sm mb-0 text-capitalize">Followers</p>
-                              <h4 class="mb-0">+91</h4>
+                              <p class="text-sm mb-0">Pending Orders</p>
+                              <h4 class="mb-0">0</h4>
                            </div>
                         </div>
 

@@ -85,6 +85,7 @@ nav {
 }
 
 .shopping-cart-link {
+  position: relative;
   margin: auto;
 }
 
@@ -100,6 +101,21 @@ li {
 .account-logged-in > .username {
   margin-left: auto;
   cursor: pointer;
+}
+
+.number-of-items {
+  font-size: 12px;
+  font-weight: 900;
+  top: -15px;
+  right: -15px;
+  position: absolute;
+  padding: 3px 5px;
+  border-radius: 50%;
+  background-color: var(--scarlet);
+  color: var(--white);
+  width: 25px;
+  height: 25px;
+  text-align: center;
 }
 
 /* IMAGES AND ICONS */
@@ -165,7 +181,9 @@ a {
 
 .categories li:hover .dropdown-menu,
 .account-logged-in:hover > .account-dropdown-menu {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .account-dropdown-menu .sign-out-link:hover {

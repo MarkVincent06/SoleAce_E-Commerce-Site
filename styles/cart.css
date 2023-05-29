@@ -15,7 +15,7 @@
 
 body {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
 }
 
@@ -118,13 +118,30 @@ body {
   padding: 8px 16px;
   width: 200px;
   color: var(--white);
-  font-weight: bold;
   background-color: var(--mango);
+  font-weight: bold;
   font-size: 17px;
   position: relative;
   z-index: 1;
   overflow: hidden;
   margin: 30px auto 0 auto;
+  text-align: center;
+}
+
+.summary--disabled-checkout-button {
+  display: block;
+  cursor: default;
+  border: none;
+  padding: 8px 16px;
+  width: 200px;
+  color: rgba(0, 0, 0, 0.3);
+  background-color: rgba(0, 0, 0, 0.3);
+  font-weight: bold;
+  font-size: 17px;
+  position: relative;
+  z-index: 1;
+  margin: 30px auto 0 auto;
+  text-align: center;
 }
 
 /* IMAGES */

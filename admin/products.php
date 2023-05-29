@@ -41,7 +41,7 @@ if (isset($_GET['category'])) {
             <div class="card-header">
                <h4>All Products - <?= $categoryTitle ?></h4>
             </div>
-            <div class="card-body" id="products-table">
+            <div class="card-body" style="overflow-x: auto;" id="products-table">
                <table class="table table-bordered table-striped">
                   <thead>
                      <tr>
@@ -52,6 +52,7 @@ if (isset($_GET['category'])) {
                         <th>Status</th>
                         <th>Featured</th>
                         <th>Trending</th>
+                        <th>No. of Stocks</th>
                         <th>Edit</th>
                         <th>Delete</th>
                      </tr>
@@ -79,6 +80,9 @@ if (isset($_GET['category'])) {
                            </td>
                            <td>
                               <?= $newProducts[$i]['trending'] == '1' ? "Yes" : "No"; ?>
+                           </td>
+                           <td>
+                              <?= $newProducts[$i]['quantity'] ?>
                            </td>
                            <td>
                               <a href="edit-product.php?id=<?= $newProducts[$i]['id'] ?>" class="btn btn-primary">Edit</a>

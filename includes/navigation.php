@@ -75,7 +75,8 @@
          <h3 class="username">Hi, <?= $_SESSION['authUser']['username'] ?></h3>
 
          <div class="account-dropdown-menu">
-            <a href="./sign-out.php" class="sign-out-link">Sign out</a>
+            <a href="./my-orders.php" class="sign-out-link">My Orders</a>
+            <a href="./sign-out.php" class="sign-out-link">Sign Out</a>
          </div>
       </div>
    <?php
@@ -88,10 +89,18 @@
    };
    ?>
 
-
-
-   <!-- WILL CHANGE THIS TO IMAGE TO ICON LATER -->
-   <a href="./cart.php" class="shopping-cart-link">
+   <?php
+   if (isset($_SESSION['auth'])) {
+      $cartItems = getCartItems();
+   }
+   ?>
+   <a href="./cart.php" class="shopping-cart-link" id="shopping-cart-link">
+      <?php
+      if (isset($_SESSION['auth']) && count($cartItems) > 0) :
+      ?>
+         <div class="number-of-items"><?= count($cartItems) ?> </div>
+      <?php endif; ?>
       <i class="fa-solid fa-cart-shopping shopping-cart"></i>
    </a>
+
 </nav>

@@ -35,6 +35,9 @@ $(document).ready(() => {
           let swalToastMsg =
             "bottom-end | 3000 | success | Product added to the cart successfully! | 28em";
           swalToastArr = swalToastMsg.split(" | ");
+          setTimeout(() => {
+            location.reload();
+          }, 3000);
         } else if (response == 500) {
           let swalToastMsg =
             "bottom-end | 3000 | error | Something went wrong! | 28em";
@@ -119,6 +122,38 @@ $(document).ready(() => {
         productSize: selectedSize,
         productQuantity: selectedQuantity,
         scope: "update",
+      },
+      success: function (response) {
+        let swalToastArr = [];
+        if (response == 201) {
+          location.reload();
+        }
+        if (response == 500) {
+          let swalToastMsg =
+            "bottom-end | 3000 | error | Something went wrong! | 28em";
+          swalToastArr = swalToastMsg.split(" | ");
+
+          showToastMsg(
+            swalToastArr[0],
+            swalToastArr[1],
+            swalToastArr[2],
+            swalToastArr[3],
+            swalToastArr[4]
+          );
+        }
+      },
+    });
+  });
+
+  $(document).on("click", ".delete-item", function () {
+    const cartID = $(this).val();
+
+    $.ajax({
+      url: "./functions/handleCart.php",
+      method: "POST",
+      data: {
+        cartID: cartID,
+        scope: "delete",
       },
       success: function (response) {
         let swalToastArr = [];
