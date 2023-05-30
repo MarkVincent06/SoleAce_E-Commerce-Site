@@ -54,6 +54,57 @@ include 'functions/myFunctions.php';
    <!-- END  OF NAV -->
 
    <main>
+      <h1>My Orders</h1>
+      <table class="content-table">
+         <thead>
+            <tr>
+               <th>No.</th>
+               <th>Tracking No.</th>
+               <th>Total Price</th>
+               <th>Payment Method</th>
+               <th>Status</th>
+               <th>Date</th>
+               <th></th>
+            </tr>
+         </thead>
+         <tbody>
+            <?php
+            $orders = getOrders();
+
+            if ($orders) :
+               for ($i = 0; $i < count($orders); $i++) :
+                  if ($orders[$i]['payment_method'] == "cod") {
+                     $orders[$i]['payment_method'] = "Cash On Delivery";
+                  }
+            ?>
+                  <tr>
+                     <td><?= ($i + 1) ?></td>
+                     <td><?= $orders[$i]['tracking_no'] ?></td>
+                     <td>₱ <?= number_format($orders[$i]['total_price']) ?></td>
+                     <td><?= $orders[$i]['payment_method'] ?></td>
+                     <?php
+                     if ($orders[$i]['status'] == 0) {
+                        $status = "Pending";
+                     } elseif ($orders[$i]['status'] == 1) {
+                        $status = "Delivered";
+                     } elseif ($orders[$i]['status'] == 2) {
+                        $status = "Cancelled";
+                     }
+                     ?>
+                     <td><?= $status ?></td>
+                     <td><?= $orders[$i]['created_at'] ?></td>
+                     <td><a class="view-button" href="view-order.php?t=<?= $orders[$i]['tracking_no'] ?>">View Details</a></td>
+                  </tr>
+               <?php
+               endfor;
+            else :
+               ?>
+               <tr>
+                  <td colspan="6">It seems like you haven't placed any orders yet. Start exploring our products and make your first purchase today!</td>
+               </tr>
+            <?php endif; ?>
+         </tbody>
+      </table>
    </main>
 
    <!-- START OF FOOTER SECTION -->

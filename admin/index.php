@@ -108,8 +108,11 @@ include './includes/header.php';
                               <i class="material-icons opacity-10">person_add</i>
                            </div>
                            <div class="text-end pt-1">
+                              <?php
+                              $ordersData = getPendingOrders();
+                              ?>
                               <p class="text-sm mb-0">Pending Orders</p>
-                              <h4 class="mb-0">0</h4>
+                              <h4 class="mb-0"><?= mysqli_num_rows($ordersData) ?></h4>
                            </div>
                         </div>
 

@@ -42,6 +42,14 @@ function getAllActive($table)
    return $queryRun;
 }
 
+function getPendingOrders()
+{
+   global $conn;
+   $query = "SELECT * FROM orders WHERE status=0";
+   $queryRun = mysqli_query($conn, $query);
+   return $queryRun;
+}
+
 
 // USER SIDE FUNCTIONS
 function getNewestActive($table, $limit)
@@ -115,6 +123,27 @@ function getCartItems()
    $queryRun = mysqli_query($conn, $query);
    $result = mysqli_fetch_all($queryRun, MYSQLI_ASSOC);
    return $result;
+}
+
+function getOrders()
+{
+   global $conn;
+   $userId = $_SESSION['authUser']['userId'];
+
+   $query = "SELECT * FROM orders WHERE user_id = '$userId' ORDER BY created_at DESC";
+   $queryRun = mysqli_query($conn, $query);
+   $result = mysqli_fetch_all($queryRun, MYSQLI_ASSOC);
+   return $result;
+}
+
+function checkTrackingNoValid($trackingNo)
+{
+   global $conn;
+   $userId = $_SESSION['authUser']['userId'];
+
+   $query = "SELECT * FROM orders WHERE tracking_no='$trackingNo' AND user_id = '$userId'";
+   $queryRun = mysqli_query($conn, $query);
+   return $queryRun;
 }
 
 // ALL SIDE FUNCTIONS

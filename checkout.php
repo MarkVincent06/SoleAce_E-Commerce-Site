@@ -1,6 +1,8 @@
 <?php
 
 include 'functions/myFunctions.php';
+include 'authenticate.php';
+
 
 ?>
 

@@ -15,8 +15,98 @@
 
 body {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   overflow-x: hidden;
 }
 
-/* LAYOUTS */
+main {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10% 75px;
+}
+
+main > h1 {
+  text-align: center;
+  margin-top: 130px;
+  margin-bottom: 25px;
+  font-size: 30px;
+}
+
+.content-table {
+  border-collapse: collapse;
+  font-size: 1em;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+  background-color: rgb(117, 201, 117);
+  color: whitesmoke;
+  text-align: left;
+  font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
+
+.content-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.content-table tbody tr:last-of-type {
+  border-bottom: 2px solid rgb(117, 201, 117);
+}
+
+.content-table tbody tr .table-data-btns {
+  display: flex;
+  align-items: center !important;
+  gap: 10px;
+}
+
+.view-button {
+  width: 65%;
+  padding: 8px 15px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  color: var(--white2);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  margin: 0 auto;
+  background-color: var(--mango);
+  display: inline-block;
+  border-radius: 5px;
+}
+
+.view-button:hover {
+  color: black;
+}
+
+.view-button:after {
+  content: "";
+  background: rgb(117, 201, 117);
+  position: absolute;
+  z-index: -1;
+  left: -20%;
+  right: -20%;
+  top: 0;
+  bottom: 0;
+  transform: skewX(-45deg) scale(0, 1);
+  transition: all 0.5s;
+}
+
+.view-button:hover:after {
+  transform: skewX(-45deg) scale(1, 1);
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+}
